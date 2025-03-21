@@ -71,10 +71,10 @@ export class MaquinaCasinoComponent implements OnInit {
     private dataService: DataService
   ) {
     this.additionalInfoForm = this.fb.group({
-      mood: ['', Validators.required],
-      focus: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      gender: ['', Validators.required],
+      estado_animo: ['', Validators.required],
+      numero_suerte: ['', Validators.required],
+      fecha_nacimiento: ['', Validators.required],
+      genero: ['', Validators.required],
     });
     const formData = this.dataService.getFormData();
     this.additionalInfoForm.patchValue(formData);
@@ -148,7 +148,7 @@ export class MaquinaCasinoComponent implements OnInit {
       await this.delay(0);
 
       // Obtener el signo zodiacal del usuario (almacenado previamente)
-      const birthDateString = this.additionalInfoForm.get('birthDate')?.value;
+      const birthDateString = this.additionalInfoForm.get('fecha_nacimiento')?.value;
       if (!birthDateString) {
         console.error('Birth date is not defined');
         return;
@@ -166,7 +166,7 @@ export class MaquinaCasinoComponent implements OnInit {
         descriptions[Math.floor(Math.random() * descriptions.length)];
 
       // Obtener el género seleccionado
-      const genderValue = this.additionalInfoForm.get('gender')?.value as keyof typeof genderDescriptions;
+      const genderValue = this.additionalInfoForm.get('genero')?.value as keyof typeof genderDescriptions;
       if (!genderValue || !genderDescriptions[genderValue]) {
         console.error('Gender value is not defined or invalid');
         return;
@@ -177,7 +177,7 @@ export class MaquinaCasinoComponent implements OnInit {
         ];
 
       // Seleccionar una recomendación esotérica según el enfoque del usuario
-      const focusValue = this.additionalInfoForm.get('focus')?.value as keyof typeof esotericRecommendations;
+      const focusValue = this.additionalInfoForm.get('numero_suerte')?.value as keyof typeof esotericRecommendations;
       if (!focusValue || !esotericRecommendations[focusValue]) {
         console.error('Focus value is not defined or invalid');
         return;
@@ -188,7 +188,7 @@ export class MaquinaCasinoComponent implements OnInit {
         ];
 
       // Seleccionar una alerta emocional
-      const moodValue = this.additionalInfoForm.get('mood')?.value as keyof typeof emotionalAlerts;
+      const moodValue = this.additionalInfoForm.get('estado_animo')?.value as keyof typeof emotionalAlerts;
       if (!moodValue || !emotionalAlerts[moodValue]) {
         console.error('Mood value is not defined or invalid');
         return;

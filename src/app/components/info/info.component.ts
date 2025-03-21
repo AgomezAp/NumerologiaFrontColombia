@@ -38,8 +38,10 @@ import { ParticlesComponent } from '../../shared/particles/particles.component';
   ],
 })
 export class InfoComponent {
-
-
+  Nombre: string = '';
+  fecha_nacimiento: Date = new Date();
+  genero: string = '';
+  /* telefono: string = ''; */
   infoForm: FormGroup;
   maxDate: string;
 
@@ -55,9 +57,10 @@ constructor(
     private dataService: DataService
   ) {
     this.infoForm = this.fb.group({
-      nombreCliente: ['', Validators.required],
-      birthDate: ['', [Validators.required]],
-      gender: ['', Validators.required],
+      Nombre: ['', Validators.required],
+      fecha_nacimiento: ['', [Validators.required]],
+      genero: ['', Validators.required],
+   /*    telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]], */
     });
 
     const today = new Date();
@@ -70,7 +73,10 @@ constructor(
     if (this.infoForm.valid) {
       const formData = this.infoForm.value;
       this.dataService.setFormData(formData);
-      localStorage.setItem('nombreCliente', formData.nombreCliente);
+      localStorage.setItem('Nombre', formData.Nombre);
+      localStorage.setItem('fecha_nacimiento', formData.fecha_nacimiento);
+      localStorage.setItem('genero', formData.genero);
+/*       localStorage.setItem('telefono', formData.telefono); */
       this.router.navigate(['/additional-info']);
     } else {
       this.infoForm.markAllAsTouched(); // Marca todos los campos para mostrar errores si no están llenos.
